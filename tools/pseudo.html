@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Générateur de pseudo gamer</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 520px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.pseudo-box {
+    margin-top: 20px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.08);
+    letter-spacing: 1px;
+}
+
+button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: #1d4ed8;
+    transform: scale(1.03);
+}
+
+.secondary {
+    background: rgba(255,255,255,0.1);
+}
+
+.secondary:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.options {
+    margin-top: 15px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+label {
+    display: block;
+    margin-top: 8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<h2>🎮 Générateur de pseudo gamer</h2>
+<p>Crée un pseudo unique instantanément</p>
+
+<div class="pseudo-box" id="pseudo">Clique sur générer</div>
+
+<button onclick="generate()">⚡ Générer un pseudo</button>
+<button class="secondary" onclick="copyPseudo()">📋 Copier</button>
+
+<div class="options">
+    <label><input type="checkbox" id="leet"> Mode leet (A→4, E→3)</label>
+    <label><input type="checkbox" id="underscore"> Ajouter _ ou -</label>
+    <label><input type="checkbox" id="caps"> MAJUSCULES stylées</label>
+</div>
+```
+
+</div>
+
+<script>
+
+const words1 = ["Dark", "Shadow", "Neo", "Cyber", "Fatal", "Ghost", "Xeno", "Blaze", "Night", "Storm"];
+const words2 = ["Hunter", "Killer", "Blade", "Sniper", "Wolf", "Rider", "King", "Lord", "Player", "Phantom"];
+
+function random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function leet(text) {
+    return text
+        .replace(/a/gi, "4")
+        .replace(/e/gi, "3")
+        .replace(/i/gi, "1")
+        .replace(/o/gi, "0");
+}
+
+function generate() {
+
+    let name = random(words1) + random(words2);
+
+    if (document.getElementById("underscore").checked) {
+        name = random(words1) + "_" + random(words2);
+    }
+
+    if (document.getElementById("caps").checked) {
+        name = name.toUpperCase();
+    }
+
+    if (document.getElementById("leet").checked) {
+        name = leet(name);
+    }
+
+    document.getElementById("pseudo").innerText = name;
+}
+
+function copyPseudo() {
+    let text = document.getElementById("pseudo").innerText;
+    navigator.clipboard.writeText(text);
+    alert("Pseudo copié !");
+}
+
+</script>
+
+</body>
+</html>
